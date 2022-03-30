@@ -19,7 +19,7 @@
 
 import numpy as np
 import pytest
-from poketto import Poketto
+from poketto import Model
 import numpy.testing as npt
 
 class TestCreate:
@@ -32,21 +32,17 @@ class TestCreate:
         
         return name, age, 
     
-    def test_class_style_init_with_field_name(self, userdata):
-        name, age = userdata
-        pk = Poketto('users', ['name', 'age'])
-        # pk = Poketto('users', 'name, age')
-        pk.name = name
-        pk.age = age
-        
-        assert (pk._fields['name'] == name).all()
-        npt.assert_equal(pk._fields['age'], age)
+    def test_class_style_init_with_field_name(self):
+
+        pk = Model('users', ['name', 'age'])
+        # pk = Model('users', 'name, age')
+        assert 'name' in pk
         
     def test_class_style_init_with_kwargs(self, userdata):
         name, age = userdata
-        pk = Poketto('users', name=name, age=age)
-        assert (pk.name == name).all()
-        npt.assert_equal(pk.age, age)
+        pk = Model('users', name=name, age=age)
+        assert pk['name'] == name
+        npt.assert_equal(pk['age'], age)
         
     def test_class_style_init_with_dict(self, userdata):
         name, age = userdata
@@ -54,7 +50,17 @@ class TestCreate:
             'name': name,
             'age': age
         }
-        pk = Poketto('users', **fields)
-        assert (pk.name == name).all()
-        npt.assert_equal(pk.age, age)        
+        pk = Model('users', **fields)
+        assert pk['name'] == name
+        npt.assert_equal(pk['age'], age)        
+        
+    def test_fromDict(self, userdata):
+        
+        name, age = userdata
+        
+    def test_fromNumpy(self, userdata):
+        pass
+    
+    def test_fromModel(self, userdata):
+        pass
         

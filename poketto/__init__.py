@@ -3,4 +3,4 @@
 # date: 2022-03-27
 # version: 0.0.1
 
-from .model import Poketto
+from .model import Model

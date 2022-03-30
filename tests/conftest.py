@@ -5,7 +5,7 @@
 import pytest
 import numpy as np
 
-from poketto.model import Poketto
+from poketto.model import Model
 
 @pytest.fixture(scope='class', name='userdata')
 def test_init():
@@ -13,6 +13,6 @@ def test_init():
     name = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank']
     age = np.array([14, 15, 16, 17, 18, 19])
     
-    pk = Poketto('users', name=name, age=age)
+    pk = Model('users', name=name, age=age)
     
     return pk
